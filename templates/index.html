@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeAlpha — AI Language Translation Tool</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="brand">
+                <div class="logo-icon">🌐</div>
+                <div class="brand-text">
+                    <h1>CodeAlpha Language Translator</h1>
+                    <p>AI-Powered Real-Time Multilingual Translation Tool</p>
+                </div>
+            </div>
+            <div class="badge">CodeAlpha Internship • Task 1</div>
+        </header>
+
+        <!-- Main Card -->
+        <main class="translator-card">
+            <!-- Controls Bar -->
+            <div class="controls-bar">
+                <div class="selector-group">
+                    <label for="sourceLang">From</label>
+                    <select id="sourceLang" class="lang-select">
+                        {% for lang_name in languages.keys() %}
+                            <option value="{{ lang_name }}" {% if lang_name == 'Auto Detect' %}selected{% endif %}>
+                                {{ lang_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+
+                <button id="swapBtn" class="btn-swap" title="Swap Languages">
+                    ⇄
+                </button>
+
+                <div class="selector-group">
+                    <label for="targetLang">To</label>
+                    <select id="targetLang" class="lang-select">
+                        {% for lang_name in languages.keys() if lang_name != 'Auto Detect' %}
+                            <option value="{{ lang_name }}" {% if lang_name == 'Spanish' %}selected{% endif %}>
+                                {{ lang_name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <!-- Side-by-Side Text Panels -->
+            <div class="panels-container">
+                <!-- Source Panel -->
+                <div class="text-panel source-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Original Text</span>
+                        <span id="sourceStats" class="stats">0 characters • 0 words</span>
+                    </div>
+                    <textarea 
+                        id="sourceText" 
+                        placeholder="Type or paste text here to translate (Press Ctrl + Enter to translate)..." 
+                        rows="8"
+                    ></textarea>
+                    <div class="panel-actions">
+                        <div class="left-actions">
+                            <button id="speakSourceBtn" class="btn-icon" title="Listen to text">
+                                🔊 Listen
+                            </button>
+                            <button id="pasteBtn" class="btn-icon" title="Paste from clipboard">
+                                📋 Paste
+                            </button>
+                        </div>
+                        <div class="right-actions">
+                            <button id="clearBtn" class="btn-clear" title="Clear text">
+                                🗑️ Clear
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Target Panel -->
+                <div class="text-panel target-panel">
+                    <div class="panel-header">
+                        <span class="panel-title">Translated Text</span>
+                        <span id="targetStats" class="stats">0 characters • 0 words</span>
+                    </div>
+                    <textarea 
+                        id="targetText" 
+                        placeholder="Translation will appear here..." 
+                        rows="8" 
+                        readonly
+                    ></textarea>
+                    <div class="panel-actions">
+                        <div class="left-actions">
+                            <button id="speakTargetBtn" class="btn-icon" title="Listen to translation">
+                                🔊 Listen
+                            </button>
+                            <button id="copyBtn" class="btn-copy" title="Copy to clipboard">
+                                📋 Copy Translation
+                            </button>
+                        </div>
+                        <span id="copyToast" class="toast-indicator"></span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Translate Action Button -->
+            <div class="action-footer">
+                <div class="shortcut-hint">
+                    💡 Tip: Press <strong>Ctrl + Enter</strong> to quickly translate
+                </div>
+                <button id="translateBtn" class="btn-translate">
+                    <span class="spinner" id="btnSpinner"></span>
+                    <span class="btn-text">🚀 Translate Now</span>
+                </button>
+            </div>
+        </main>
+
+        <!-- Status / Detection Bar -->
+        <footer class="status-bar">
+            <span id="statusMessage">Ready • Enter text to begin</span>
+            <span id="detectionBadge" class="detection-badge">Language: Auto Detect</span>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
