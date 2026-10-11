@@ -16,7 +16,7 @@ def index():
     """Renders the main translation tool web interface."""
     return render_template(
         "index.html",
-        languages=SUPPORTED_LANGUAGES,
+        languages=SUPPORTED_LANGUAGES
     )
 
 
