@@ -261,3 +261,4 @@ class TranslationEngine:
 
 # Global instance for quick re-use
 engine = TranslationEngine()
+
