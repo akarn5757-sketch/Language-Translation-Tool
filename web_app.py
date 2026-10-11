@@ -66,9 +66,13 @@ def translate_api():
             "error": str(exc),
         }), 500
 
+import os
+from flask import Flask
+
+app = Flask(_name_)
 
 if __name__ == "__main__":
-    print("Starting CodeAlpha Language Translation Tool Web App...")
-    print("Open your browser and navigate to: http://127.0.0.1:5000")
-    app.run(debug=True, host="127.0.0.1", port=5000)
-
+   
+# Aapke baaki routes yahan honge...
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
