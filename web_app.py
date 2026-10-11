@@ -69,7 +69,7 @@ def translate_api():
 import os
 from flask import Flask
 
-app = Flask(_name_)
+app = Flask(__name__)
 
 if __name__ == "__main__":
    
